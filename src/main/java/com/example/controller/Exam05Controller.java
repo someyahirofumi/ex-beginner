@@ -24,7 +24,7 @@ public class Exam05Controller {
 	
 	@RequestMapping("/check")
 	public String check(String name,Model model) {
-		List<Member> memberList=new ArrayList<>();
+		List<String> memberList=new ArrayList<>();
 		memberList=repository.check(name);
 		
 		model.addAttribute("list",memberList);

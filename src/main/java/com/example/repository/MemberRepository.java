@@ -22,12 +22,16 @@ public class MemberRepository {
 	
 	private static final RowMapper<Member> MEMBER_ROW_MAPPER=new BeanPropertyRowMapper<>(Member.class);
 	
-	public List<Member> check(String name) {
-		String sql="SELECT * FROM members WHERE name like'%:name%;";
-		SqlParameterSource param=new MapSqlParameterSource("name",name);
+	public List<String> check(String name) {
+		String sql="SELECT * FROM members WHERE name like :name;";
+		SqlParameterSource param=new MapSqlParameterSource("name","%"+name+"%");
 		List<Member> list=new ArrayList<>();
 		 list = template.query(sql, param, MEMBER_ROW_MAPPER);
-		return list;
+		 List<String> nameList=new ArrayList<>();
+		 for(Member member:list) {
+			 nameList.add(member.getName());
+		 }
+		return nameList;
 	}
 
 }
