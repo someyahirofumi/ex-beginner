@@ -1,5 +1,8 @@
 package com.example.repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -19,11 +22,12 @@ public class MemberRepository {
 	
 	private static final RowMapper<Member> MEMBER_ROW_MAPPER=new BeanPropertyRowMapper<>(Member.class);
 	
-	public Member check(String name) {
+	public List<Member> check(String name) {
 		String sql="SELECT * FROM members WHERE name like'%:name%;";
 		SqlParameterSource param=new MapSqlParameterSource("name",name);
-		Member member = template.queryForObject(sql, param, MEMBER_ROW_MAPPER);
-		return member;
+		List<Member> list=new ArrayList<>();
+		 list = template.query(sql, param, MEMBER_ROW_MAPPER);
+		return list;
 	}
 
 }
