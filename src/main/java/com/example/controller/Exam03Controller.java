@@ -19,9 +19,9 @@ public class Exam03Controller {
 		return "exam03";
 	}
 	
-	@RequestMapping("buy")
+	@RequestMapping("/buy")
 	public String buy(Integer product1Value,Integer product2Value,Integer product3Value) {
-		DecimalFormat formater= new DecimalFormat("000,000,");
+		DecimalFormat formater= new DecimalFormat("###,###");
 		Integer total=product1Value+product2Value+product3Value;
 		Integer fullTotal=(total/10)+total;
 		application.setAttribute("total",formater.format(total));
